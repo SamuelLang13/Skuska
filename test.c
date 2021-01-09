@@ -86,6 +86,7 @@ void push(TGRADE**head,char grade)
   if(*head==NULL)
   {
     *head=newNode;
+    return;
   }
   while (last->m_Next!=NULL)
   {
@@ -134,7 +135,6 @@ TGRADE * ownGrades ( const char * list )
         }
         strncpy(data[dataCnt].m_Username,username,sizeof(data[dataCnt].m_Username));
         strncpy(data[dataCnt].m_Date,date,sizeof(data[dataCnt].m_Date));
-        data[dataCnt].m_Grade=grade;
         dataCnt++;
         //Clearing arrays
         memset(username,'\0',76*sizeof(username[0]));
@@ -183,7 +183,6 @@ TGRADE * allGrades ( const char * list )
         }
         strncpy(data[dataCnt].m_Username,username,sizeof(data[dataCnt].m_Username));
         strncpy(data[dataCnt].m_Date,date,sizeof(data[dataCnt].m_Date));
-        data[dataCnt].m_Grade=grade;
         dataCnt++;
         //Clearing arrays
         memset(username,'\0',76*sizeof(username[0]));
