@@ -112,7 +112,7 @@ TGRADE * ownGrades ( const char * list )
   {
     if(list[cnt]=='{')
     {
-      sscanf(list[cnt]," %75s ; %11s ; %19s} ",username,date,grades_input);
+      sscanf((list+cnt)," %75s ; %11s ; %19s} ",username,date,grades_input);
       //Function to find out if the grade exists
       grade=comparing(grades_input);
       if(grade=='X')
