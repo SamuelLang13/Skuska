@@ -23,56 +23,15 @@ void freeList ( TGRADE * l );
 int comparing(char *grade_input)
 {
   char result='X';
-  int  compare=0;
+  int  compareFault=0;
   char gradeA[]={"Excellent"};
   char gradeB[]={"VeryGood"};
   char gradeC[]={"Good"};
   char gradeD[]={"Satisfactory"};
   char gradeE[]={"Sufficient"};
   char gradeF[]={"Failed"};
+  
 
-  compare=strcmp(gradeA,grade_input);
-
-  if(compare==0 || compare==-1 || compare==1 )
-  {
-    result='A';
-    return result;
-  }
-
-  compare=strcmp(gradeB,grade_input);
-  if(compare==0 || compare==-1 || compare==1 )
-  {
-    result='B';
-    return result;
-  }
-
-  compare=strcmp(gradeC,grade_input);
-  if(compare==0 || compare==-1 || compare==1 )
-  {
-    result='C';
-    return result;
-  }
-
-  compare=strcmp(gradeD,grade_input);
-  if(compare==0 || compare==-1 || compare==1 )
-  {
-    result='D';
-    return result;
-  }
-
-  compare=strcmp(gradeE,grade_input);
-  if(compare==0 || compare==-1 || compare==1 )
-  {
-    result='E';
-    return result;
-  }
-
-  compare=strcmp(gradeF,grade_input);
-  if(compare==0 || compare==-1 || compare==1 )
-  {
-    result='F';
-    return result;
-  }
   return result;
 }
 
