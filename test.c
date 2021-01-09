@@ -108,7 +108,7 @@ TGRADE * ownGrades ( const char * list )
   char grades_input[20];
   char myName[]={"langsamu"};
   int cnt=0;
-  int grade=0;
+  char grade;
   int compare=0;
   while (list[cnt]!='\0')
   {
@@ -125,7 +125,7 @@ TGRADE * ownGrades ( const char * list )
         memset(date,'\0',12*sizeof(date[0]));
         memset(grades_input,'\0',20*sizeof(grades_input[0]));
       }
-      else
+      else if(grade!='X' && compare==0)
       {
         if(dataCnt>=dataMax)
         {
