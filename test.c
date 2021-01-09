@@ -159,7 +159,7 @@ TGRADE * allGrades ( const char * list )
   char date[12];
   char grades_input[20];
   int cnt=0;
-  int grade=0;
+  char grade;
   while (list[cnt]!='\0')
   {
     if(list[cnt]=='{')
