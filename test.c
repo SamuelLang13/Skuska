@@ -19,27 +19,132 @@ typedef struct TGrade
 /* forward declaration, function is implemented in the testing environment */
 void freeList ( TGRADE * l );
 
+
+int comparing(char *grade_input)
+{
+  char result='X';
+  char gradeA[]={"Excellent"};
+  char gradeB[]={"VeryGood"};
+  char gradeC[]={"Good"};
+  char gradeD[]={"Satisfactory"};
+  char gradeE[]={"Sufficient"};
+  char gradeF[]={"Failed"};
+
+  result=strcmp(gradeA,grade_input);
+
+  if(result==0 || result==-1 || result==1 )
+  {
+    result='A';
+    return result;
+  }
+
+  result=strcmp(gradeB,grade_input);
+  if(result==0 || result==-1 || result==1 )
+  {
+    result='B';
+    return result;
+  }
+
+  result=strcmp(gradeC,grade_input);
+  if(result==0 || result==-1 || result==1 )
+  {
+    result='C';
+    return result;
+  }
+
+  result=strcmp(gradeD,grade_input);
+  if(result==0 || result==-1 || result==1 )
+  {
+    result='D';
+    return result;
+  }
+
+  result=strcmp(gradeE,grade_input);
+  if(result==0 || result==-1 || result==1 )
+  {
+    result='E';
+    return result;
+  }
+
+  result=strcmp(gradeF,grade_input);
+  if(result==0 || result==-1 || result==1 )
+  {
+    result='F';
+    return result;
+  }
+  return result;
+}
+
+void push(TGRADE**head,char grade)
+{
+  TGRADE*newNode=(TGRADE*)malloc(sizeof(*newNode));
+
+  TGRADE*last=*head;
+  newNode->m_Grade=grade;
+  newNode->m_Next=NULL;
+
+  if(*head==NULL)
+  {
+    *head=newNode;
+  }
+  while (last->m_Next!=NULL)
+  {
+    last=last->m_Next;
+  }
+  last->m_Next=newNode;
+  return;
+}
+
+
+
 TGRADE * ownGrades ( const char * list )
 {
+  TGRADE*head=NULL;
   TGRADE*data=NULL;
+  int dataCnt=0;
+  int dataMax=0;
   char username[76];
   char date[12];
-  char grades[]={"Excellent","VeryGood","Good","Satisfactory","Sufficient","Failed"};
   char grades_input[20];
   int cnt=0;
+  int grade=0;
   while (list[cnt]!='\0')
   {
-    if(list[cnt]=='}')
+    if(list[cnt]=='{')
     {
-      sscanf(cnt," %s ; %s ; %s} ",username,date,grades_input);
-      
+      sscanf(list[cnt]," %75s ; %11s ; %19s} ",username,date,grades_input);
+      //Function to find out if the grade exists
+      grade=comparing(grades_input);
+      if(grade=='X')
+      {
+        //Clearing arrays
+        memset(username,'\0',76*sizeof(username[0]));
+        memset(date,'\0',12*sizeof(date[0]));
+        memset(grades_input,'\0',20*sizeof(grades_input[0]));
+      }
+      else
+      {
+        if(dataCnt>=dataMax)
+        {
+          dataMax=dataMax+100;
+          data=(TGRADE*)realloc(data,dataMax*sizeof(*data));
+        }
+        strncpy(data[dataCnt].m_Username,username,sizeof(data[dataCnt].m_Username));
+        strncpy(data[dataCnt].m_Date,date,sizeof(data[dataCnt].m_Date));
+        data[dataCnt].m_Grade=grade;
+        dataCnt++;
+        //Clearing arrays
+        memset(username,'\0',76*sizeof(username[0]));
+        memset(date,'\0',12*sizeof(date[0]));
+        memset(grades_input,'\0',20*sizeof(grades_input[0]));
+        //Procedure for adding link list
+        push(&head,grade);
+      } 
     }
-    
+    cnt++;
   }
-  
-  
 
-  return NULL; /* TODO */
+  return NULL; 
 }
 
 TGRADE * allGrades ( const char * list )
