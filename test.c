@@ -29,6 +29,11 @@ TGRADE * ownGrades ( const char * list )
   int cnt=0;
   while (list[cnt]!='\0')
   {
+    if(list[cnt]=='}')
+    {
+      sscanf(cnt," %s ; %s ; %s} ",username,date,grades_input);
+      
+    }
     
   }
   
