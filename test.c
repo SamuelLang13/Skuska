@@ -99,8 +99,54 @@ void push(TGRADE**head,char grade)
 
 TGRADE * ownGrades ( const char * list )
 {
-
-  return NULL; 
+  TGRADE*head=NULL;
+  TGRADE*data=NULL;
+  int dataCnt=0;
+  int dataMax=0;
+  char username[76];
+  char date[12];
+  char grades_input[20];
+  char myName[]={"langsamu"};
+  int cnt=0;
+  int grade=0;
+  int compare=0;
+  while (list[cnt]!='\0')
+  {
+    if(list[cnt]=='{')
+    {
+      sscanf((list+cnt)," %75s ; %11s ; %19s } ",username,date,grades_input);
+      //Function to find out if the grade exists
+      compare=strcmp(myName,username);
+      grade=comparing(grades_input);
+      if(grade=='X' || compare!=0)
+      {
+        //Clearing arrays
+        memset(username,'\0',76*sizeof(username[0]));
+        memset(date,'\0',12*sizeof(date[0]));
+        memset(grades_input,'\0',20*sizeof(grades_input[0]));
+      }
+      else
+      {
+        if(dataCnt>=dataMax)
+        {
+          dataMax=dataMax+100;
+          data=(TGRADE*)realloc(data,dataMax*sizeof(*data));
+        }
+        strncpy(data[dataCnt].m_Username,username,sizeof(data[dataCnt].m_Username));
+        strncpy(data[dataCnt].m_Date,date,sizeof(data[dataCnt].m_Date));
+        data[dataCnt].m_Grade=grade;
+        dataCnt++;
+        //Clearing arrays
+        memset(username,'\0',76*sizeof(username[0]));
+        memset(date,'\0',12*sizeof(date[0]));
+        memset(grades_input,'\0',20*sizeof(grades_input[0]));
+        //Procedure for adding link list
+        push(&head,grade);
+      } 
+    }
+    cnt++;
+  }
+  return data; 
 }
 
 TGRADE * allGrades ( const char * list )
@@ -149,7 +195,7 @@ TGRADE * allGrades ( const char * list )
     }
     cnt++;
   }
-  return NULL; 
+  return data; 
 }
 
 TGRADE * combineGrades ( TGRADE * listA, TGRADE * listB )
@@ -181,7 +227,8 @@ int gradeCount    ( TGRADE * list, const char * username, const char * date, cha
 }
 int listLength    ( TGRADE * list )
 {
-  return 0; /* TODO */
+
+  return 0; 
 }
 int gradeMatch   ( TGRADE * list, int pos, const char * username, const char * date, char grade )
 {
@@ -214,12 +261,12 @@ int main ( void )
   assert ( gradeMatch ( l, 3, "langsamu", "2020-04-15", 'F' ) );
   freeList ( l );
 
-  // l = ownGrades ( str1 );
-  // assert ( listLength ( l ) == 3 );
-  // assert ( gradeMatch ( l, 0, "langsamu", "2020-11-24", 'C' ) );
-  // assert ( gradeMatch ( l, 1, "langsamu", "2020-04-15", 'F' ) );
-  // assert ( gradeMatch ( l, 2, "langsamu", "2020-04-15", 'F' ) );
-  // freeList ( l );
+  l = ownGrades ( str1 );
+  assert ( listLength ( l ) == 3 );
+  assert ( gradeMatch ( l, 0, "langsamu", "2020-11-24", 'C' ) );
+  assert ( gradeMatch ( l, 1, "langsamu", "2020-04-15", 'F' ) );
+  assert ( gradeMatch ( l, 2, "langsamu", "2020-04-15", 'F' ) );
+  freeList ( l );
 
   // l = combineGrades ( allGrades ( str1 ), allGrades ( str2 ) );
   // assert ( listLength ( l ) == 7 );
